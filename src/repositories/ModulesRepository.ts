@@ -32,7 +32,7 @@ class ModulesRepository implements IModulesRepository {
     return await this.ormRepository.remove(module);
   }
 
-  public async update(module: Module): Promise<Module | undefined> {
+  public async update(module: Module): Promise<Module> {
     return await this.ormRepository.save(module);
   }
 
