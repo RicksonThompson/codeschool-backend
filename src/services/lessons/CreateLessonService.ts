@@ -1,6 +1,13 @@
 import { getRepository } from 'typeorm';
 
-import Lesson from '@modules/lessons/infra/typeorm/entities/Lesson';
+import Lesson from '../../models/Lesson';
+
+interface IRequest {
+  title: string;
+  description: string;
+  module_id: number;
+  link: string;
+}
 
 class CreateClassService {
   public async execute({title, description, module_id, link} :IRequest) :Promise<Lesson> {

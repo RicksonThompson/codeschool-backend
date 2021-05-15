@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import ModulesController from '../controllers/ModulesController';
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import ModulesController from './controllers/ModulesController';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const modulesRouter = Router();
 const modulesController = new ModulesController();

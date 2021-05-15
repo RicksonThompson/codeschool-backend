@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { container } from 'tsyringe';
 
-import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
+import AuthenticateUserService from '../../services/users/AuthenticateUserService';
 
 export default class UsersController {
 
@@ -9,7 +8,7 @@ export default class UsersController {
 
   const { email, password } = request.body;
 
-  const authenticateUser = container.resolve(AuthenticateUserService);
+  const authenticateUser = new AuthenticateUserService();
 
   const { user, token } = await authenticateUser.execute({
     email,

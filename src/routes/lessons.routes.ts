@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
-import LessonsController from '../controllers/LessonsController';
+import LessonsController from './controllers/LessonsController';
 
 const lessonsRouter = Router();
 const lessonsController = new LessonsController();

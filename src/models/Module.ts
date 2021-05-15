@@ -4,10 +4,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany
+  OneToMany,
+  ManyToOne,
+  JoinColumn
 } from 'typeorm';
 
-import Lesson from '../models/Lesson';
+import Lesson from './Lesson';
+
+import User from './User';
 
 @Entity('modules')
 class Module {
@@ -22,6 +26,13 @@ class Module {
 
   @OneToMany(() => Lesson, lesson => lesson.module)
   lesson: Lesson;
+
+  @ManyToOne(() => User, user => user.module, { eager: true })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @Column()
+  user_id: number;
 
   @CreateDateColumn()
   created_at: Date;

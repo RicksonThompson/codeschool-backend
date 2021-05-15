@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 
-import CreateLessonService from '@modules/lessons/services/CreateLessonService';
-import DeleteLessonService from '@modules/lessons/services/DeleteLessonService';
-import ListLessonService from '@modules/lessons/services/ListLessonService';
-import UpdateLessonService from '@modules/lessons/services/UpdateLessonService';
+import CreateLessonService from '../../services/lessons/CreateLessonService';
+import DeleteLessonService from '../../services/lessons/DeleteLessonService';
+import ListLessonService from '../../services/lessons/ListLessonService';
+import UpdateLessonService from '../../services/lessons/UpdateLessonService';
 
 export default class ModulesController {
   public async create(request: Request, response: Response): Promise<Response> {

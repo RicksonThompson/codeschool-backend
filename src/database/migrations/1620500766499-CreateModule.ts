@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
 export class CreateModule1620500766499 implements MigrationInterface {
 
@@ -17,12 +17,14 @@ export class CreateModule1620500766499 implements MigrationInterface {
             {
               name: 'title',
               type: 'varchar',
-              isNullable: true,
             },
             {
               name: 'description',
               type: 'varchar',
-              isNullable: true,
+            },
+            {
+              name: 'user_id',
+              type: 'int',
             },
             {
               name: 'created_at',
@@ -35,8 +37,20 @@ export class CreateModule1620500766499 implements MigrationInterface {
               default: 'now()',
             },
           ]
-        })
+        }), true
       )
+
+      queryRunner.clearSqlMemory();
+
+      const foreignKey = new TableForeignKey({
+        columnNames: ['user_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'users',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
+      });
+      await queryRunner.createForeignKey('modules', foreignKey);
+
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

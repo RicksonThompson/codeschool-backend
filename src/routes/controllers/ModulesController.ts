@@ -1,20 +1,21 @@
 import { Request, Response } from 'express';
 
-import CreateModuleService from '@modules/module/services/CreateModuleService';
-import DeleteModuleService from '@modules/module/services/DeleteModuleService';
-import ListModuleService from '@modules/module/services/ListModuleService';
-import UpdateModuleService from '@modules/module/services/UpdateModuleService';
+import CreateModuleService from '../../services/modules/CreateModuleService';
+import DeleteModuleService from '../../services/modules/DeleteModuleService';
+import ListModuleService from '../../services/modules/ListModuleService';
+import UpdateModuleService from '../../services/modules/UpdateModuleService';
 
 export default class ModulesController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { title, description } = request.body;
+      const { title, description, user_id } = request.body;
 
       const CreateModule = new CreateModuleService();
 
       const module = await CreateModule.execute({
         title,
-        description
+        description,
+        user_id
       });
 
       return response.json(module);

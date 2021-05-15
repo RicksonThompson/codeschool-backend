@@ -1,13 +1,13 @@
 import { getRepository } from 'typeorm';
 
-import Lesson from '@modules/lessons/infra/typeorm/entities/Lesson';
+import Lesson from '../../models/Lesson';
 
 interface IRequest {
   id: number;
   title: string;
   description: string;
   link: string;
-  module_id: string;
+  module_id: number;
 }
 
 class UpdateLessonService {

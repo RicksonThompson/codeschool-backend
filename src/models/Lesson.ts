@@ -29,7 +29,7 @@ class Lesson {
   module: Module;
 
   @Column()
-  module_id: string;
+  module_id: number;
 
   @CreateDateColumn()
   created_at: Date;

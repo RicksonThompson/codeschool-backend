@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import usersRouter from '@modules/users/infra/http/routes/users.routes';
-import modulesRouter from '@modules/module/infra/http/routes/modules.routes';
-import lessonsRouter from '@modules/lessons/infra/http/routes/lessons.routes';
-import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
+import usersRouter from './users.routes';
+import modulesRouter from './modules.routes';
+import lessonsRouter from './lessons.routes';
+import sessionsRouter from './sessions.routes';
 
 const routes = Router();
 
