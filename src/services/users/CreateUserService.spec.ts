@@ -1,28 +1,40 @@
-jest.mock('./CreateUserService');
+import AppError from '../../errors/AppError';
 
-import CreateUserService from  './CreateUserService';
-import User from '../../models/User';
+import FakeUsersRepository from '../../repositories/fakes/FakesUsersRepository';
+import CreateUserService from './CreateUserService';
+
+let fakeUsersRepository: FakeUsersRepository;
+let createUser: CreateUserService;
 
 describe('CreateUser', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    createUser = new CreateUserService(fakeUsersRepository);
+  });
 
   it('should be able to create a new user', async () => {
-    const createUserService = new CreateUserService;
+    const user = await createUser.execute({
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      password: '123123',
+    });
 
-    const users: User[] = [];
+    expect(user).toHaveProperty('id');
+  });
 
-    const user = {
-      name: 'Rickson',
-      email: 'rickson@test.com',
-      password: '1234',
-    }
+  it('should not be able to create a new user with email from another', async () => {
+    await createUser.execute({
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      password: '123123',
+    });
 
-    const userr = await createUserService.execute({
-      name: user.name,
-      email: user.email,
-      password: user.password,
-    })
-
-    expect(user).toHaveProperty("id");
-
-  })
-})
+    await expect(
+      createUser.execute({
+        name: 'John Doe',
+        email: 'johndoe@example.com',
+        password: '123123',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+});
