@@ -7,6 +7,7 @@ Você deve criar uma API que deve atender os seguintes requisitos:
 - [x] Fazer Login e Logout.
 - [x] Criar, Listar, Deletar, Atualizar um módulo.
 - [x] Criar, Listar, Deletar, Atualizar um aula (uma aula pertence a um módulo).
+- [] Criar testes
 
 Observações:
 
@@ -20,3 +21,5 @@ Observações:
 - [] Tela de de módulos
 - [] Tela de aula com videoplayer (utilizar o YouTube, Vimeo, ou outro).
 
+# Outros:
+Alterar tabela de lessons para guardar os dados de um vídeo do youtube

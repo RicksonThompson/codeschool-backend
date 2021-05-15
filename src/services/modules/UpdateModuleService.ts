@@ -1,23 +1,26 @@
-import { getRepository } from 'typeorm';
-
 import Module from '../../models/Module';
+import IModuleRepository from '../../repositories/IModulesRepository';
 
 interface IRequest {
-  id: number;
+  id_module: number;
   title: string;
   description: string;
 }
 
 class UpdateModuleService {
-  public async execute({ id, title, description }: IRequest): Promise<Module | undefined> {
-    const modulesRepository = getRepository(Module);
 
-    const module = await modulesRepository.findOne(id);
+  constructor (
+    private modulesRepository: IModuleRepository
+  ) {}
+
+  public async execute({ id_module, title, description }: IRequest): Promise<Module | undefined> {
+
+    const module = await this.modulesRepository.findById(id_module);
 
     module.title = title;
     module.description = description;
 
-    await modulesRepository.save(module);
+    await this.modulesRepository.update(module);
 
     return module;
   }

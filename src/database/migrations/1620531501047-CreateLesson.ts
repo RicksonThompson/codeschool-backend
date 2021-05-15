@@ -24,7 +24,7 @@ export class CreateLesson1620531501047 implements MigrationInterface {
               type: 'varchar',
             },
             {
-              name: 'link',
+              name: 'videoId',
               type: 'varchar',
               isNullable: true,
             },

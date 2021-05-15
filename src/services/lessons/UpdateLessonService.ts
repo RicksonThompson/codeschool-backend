@@ -1,27 +1,30 @@
-import { getRepository } from 'typeorm';
-
 import Lesson from '../../models/Lesson';
+import ILessonsRepository from '../../repositories/ILessonsRepository';
 
 interface IRequest {
   id: number;
   title: string;
   description: string;
-  link: string;
+  videoId: string;
   module_id: number;
 }
 
 class UpdateLessonService {
-  public async execute({ id, title, description, link, module_id }: IRequest): Promise<Lesson> {
-    const lessonsRepository = getRepository(Lesson);
 
-    const lesson = await lessonsRepository.findOne(id);
+  constructor (
+    private lessonsRepository: ILessonsRepository
+  ) {}
+
+  public async execute({ id, title, description, videoId, module_id }: IRequest): Promise<Lesson | undefined> {
+
+    const lesson = await this.lessonsRepository.findById(id);
 
     lesson.title = title;
     lesson.description = description;
-    lesson.link = link;
+    lesson.videoId = videoId;
     lesson.module_id = module_id;
 
-    await lessonsRepository.save(lesson);
+    await this.lessonsRepository.update(lesson);
 
     return lesson;
   }

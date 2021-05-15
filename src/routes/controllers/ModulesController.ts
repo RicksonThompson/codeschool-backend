@@ -5,12 +5,16 @@ import DeleteModuleService from '../../services/modules/DeleteModuleService';
 import ListModuleService from '../../services/modules/ListModuleService';
 import UpdateModuleService from '../../services/modules/UpdateModuleService';
 
+import ModulesRepository from '../../repositories/ModulesRepository';
+
 export default class ModulesController {
   public async create(request: Request, response: Response): Promise<Response> {
+    const modulesRepository = new ModulesRepository();
+
     try {
       const { title, description, user_id } = request.body;
 
-      const CreateModule = new CreateModuleService();
+      const CreateModule = new CreateModuleService(modulesRepository);
 
       const module = await CreateModule.execute({
         title,
@@ -25,12 +29,14 @@ export default class ModulesController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { id, title, description } = request.body;
+    const modulesRepository = new ModulesRepository();
 
-    const UpdateModule = new UpdateModuleService();
+    const { id_module, title, description } = request.body;
+
+    const UpdateModule = new UpdateModuleService(modulesRepository);
 
     const module = await UpdateModule.execute({
-      id,
+      id_module,
       title,
       description,
     });
@@ -39,17 +45,23 @@ export default class ModulesController {
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
+    const modulesRepository = new ModulesRepository();
+
     const { id } = request.params;
 
-    const DeleteModule = new DeleteModuleService();
+    const id_module= parseInt(id);
 
-    await DeleteModule.execute(id);
+    const DeleteModule = new DeleteModuleService(modulesRepository);
+
+    await DeleteModule.execute(id_module);
 
     return response.status(204).send();
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const listModule = new ListModuleService();
+    const modulesRepository = new ModulesRepository();
+    
+    const listModule = new ListModuleService(modulesRepository);
 
     const modules = await listModule.execute();
 

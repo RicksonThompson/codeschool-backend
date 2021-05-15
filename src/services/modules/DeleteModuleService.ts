@@ -1,20 +1,22 @@
-import { getRepository } from 'typeorm';
-
 import AppError from '../../errors/AppError';
 
-import Module from '../../models/Module';
+import IModuleRepository from '../../repositories/IModulesRepository';
 
 class DeleteModuleService {
-  public async execute(id: string) :Promise<void> {
-    const modulesRepository = getRepository(Module);
 
-    const module = await modulesRepository.findOne(id);
+  constructor (
+    private modulesRepository: IModuleRepository
+  ) {}
+
+  public async execute(id: number) :Promise<void> {
+
+    const module = await this.modulesRepository.findById(id);
 
     if (!module) {
       throw new AppError('Module does not exists!');
     }
 
-    await modulesRepository.remove(module);
+    await this.modulesRepository.remove(module);
   }
 }
 

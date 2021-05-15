@@ -1,12 +1,15 @@
-import { getRepository } from 'typeorm';
-
 import Module from '../../models/Module';
+import IModuleRepository from '../../repositories/IModulesRepository';
 
 class ListModuleService {
-  public async execute(): Promise<Module[]> {
-    const modulesRepository = getRepository(Module);
 
-    const module = modulesRepository.find();
+  constructor (
+    private modulesRepository: IModuleRepository
+  ) {}
+
+  public async execute(): Promise<Module[]> {
+
+    const module = await this.modulesRepository.findAllModules();
 
     return module;
   }

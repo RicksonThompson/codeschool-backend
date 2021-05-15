@@ -1,12 +1,15 @@
-import { getRepository } from 'typeorm';
-
 import Lesson from '../../models/Lesson';
+import ILessonsRepository from '../../repositories/ILessonsRepository';
 
 class ListLessonService {
-  public async execute(): Promise<Lesson[]> {
-    const lessonsRepository = getRepository(Lesson);
 
-    const lessons = await lessonsRepository.find();
+  constructor (
+    private lessonsRepository: ILessonsRepository
+  ) {}
+
+  public async execute(): Promise<Lesson[]> {
+
+    const lessons = await this.lessonsRepository.findAllLessons();
 
     return lessons;
   }

@@ -3,6 +3,8 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
 import User from '../../models/User';
+import IUserRepository from '../../repositories/IUsersRepository';
+
 import authConfig from '../../config/auth';
 
 interface IRequest {
@@ -17,10 +19,13 @@ interface IResponse {
 
 class AuthenticateUserService {
 
-  public async execute({ email, password }: IRequest): Promise<IResponse> {
-    const usersRepository = getRepository(User);
+  constructor (
+    private usersRepository: IUserRepository
+  ) {}
 
-    const user = await usersRepository.findOne(email);
+  public async execute({ email, password }: IRequest): Promise<IResponse> {
+
+    const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
       throw new Error('Incorrect email/password combination');

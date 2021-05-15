@@ -1,6 +1,5 @@
-import { getRepository } from 'typeorm';
-
 import Module from '../../models/Module';
+import IModuleRepository from '../../repositories/IModulesRepository';
 
 interface IRequest {
   title: string;
@@ -9,10 +8,14 @@ interface IRequest {
 }
 
 class CreateModuleService {
-  public async execute({ title, description, user_id }: IRequest): Promise<Module> {
-    const modulesRepository = getRepository(Module);
 
-    const module = modulesRepository.create({
+  constructor (
+    private modulesRepository: IModuleRepository
+  ) {}
+  
+  public async execute({ title, description, user_id }: IRequest): Promise<Module> {
+
+    const module = await this.modulesRepository.create({
       title,
       description,
       user_id

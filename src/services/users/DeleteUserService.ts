@@ -1,8 +1,7 @@
-import { getRepository } from 'typeorm';
-
 import AppError from '../../errors/AppError';
 
 import User from '../../models/User';
+import IUsersRepository from 'repositories/IUsersRepository';
 
 interface IRequest {
   id: number;
@@ -10,16 +9,19 @@ interface IRequest {
 
 class DeleteUserService {
 
-  public async execute(id: number) :Promise<User | undefined> {
-    const usersRepository = getRepository(User);
+  constructor (
+    private usersRepository: IUsersRepository
+  ) {}
 
-    const user = await usersRepository.findOne(id);
+  public async execute(id: number) :Promise<User | undefined> {
+
+    const user = await this.usersRepository.findById(id);
 
     if (!user) {
       throw new AppError('User does not exists!');
     }
 
-    return await usersRepository.remove(user);
+    return await this.usersRepository.remove(user);
   }
 }
 

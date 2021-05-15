@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import Module from '../models/Module';
+import Module from './Module';
 
 @Entity('lessons')
 class Lesson {
@@ -22,7 +22,7 @@ class Lesson {
   description: string;
 
   @Column()
-  link: string;
+  videoId: string;
 
   @ManyToOne(() => Module, module => module.lesson, { eager: true })
   @JoinColumn({ name: 'module_id' })

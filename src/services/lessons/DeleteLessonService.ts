@@ -1,20 +1,22 @@
-import { getRepository } from 'typeorm';
+import ILessonsRepository from '../../repositories/ILessonsRepository';
 
 import AppError from '../../errors/AppError';
 
-import Lesson from '../../models/Lesson';
-
 class DeleteLessonService {
-  public async execute(id: string) :Promise<void> {
-    const lessonsRepository = getRepository(Lesson);
 
-    const lesson = await lessonsRepository.findOne(id);
+  constructor (
+    private lessonsRepository: ILessonsRepository
+  ) {}
+
+  public async execute(id: number) :Promise<void> {
+
+    const lesson = await this.lessonsRepository.findById(id);
 
     if (!lesson) {
       throw new AppError('Lesson does not exists!');
     }
 
-    await lessonsRepository.remove(lesson);
+    await this.lessonsRepository.remove(lesson);
   }
 }
 
