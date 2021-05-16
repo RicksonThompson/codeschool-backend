@@ -21,8 +21,8 @@ class CreateClassService {
     const lesson = await this.lessonsRepository.create({
       title,
       description,
-      videoId: videoIdDivided[1],
       module_id,
+      videoId: videoIdDivided[1],
     });
 
     return lesson;

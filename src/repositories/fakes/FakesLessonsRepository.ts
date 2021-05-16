@@ -1,43 +1,50 @@
-import { getRepository, Repository } from 'typeorm';
+import { v4 as uuid_v4 } from "uuid";
 
-import ILessonsRepository from './ILessonsRepository';
+import ILessonsRepository from '../ILessonsRepository';
 
-import ICreateLessonDTO from './dtos/ICreateLessonDTO';
+import ICreateLessonDTO from '../dtos/ICreateLessonDTO';
 
-import Lesson from '../models/Lesson';
+import Lesson from '../../models/Lesson';
 
 class LessonsRepository implements ILessonsRepository {
-  private ormRepository: Repository<Lesson>;
-
-  constructor() {
-    this.ormRepository = getRepository(Lesson);
-  }
+  private lessons : Lesson[] = []
 
   public async findById(id: number): Promise<Lesson | undefined> {
-    const findLesson = await this.ormRepository.findOne(id);
+    const findLesson = this.lessons.find(findLesson => findLesson.id === id);
 
     return findLesson;
   }
 
   public async create(lessonData: ICreateLessonDTO): Promise<Lesson> {
-    const lesson = this.ormRepository.create(lessonData);
+    const lesson = new Lesson();
 
-    await this.ormRepository.save(lesson);
+    Object.assign(lesson, { id: uuid_v4() }, lessonData);
+
+    this.lessons.push(lesson);
 
     return lesson;
   }
 
   public async remove(lesson: Lesson): Promise<Lesson | undefined> {
+    const findIndex = this.lessons.findIndex(findLesson => findLesson.id === lesson.id);
 
-    return await this.ormRepository.remove(lesson);
+    this.lessons.splice(findIndex,1);
+
+    return lesson;
   }
 
-  public async update(lesson: Lesson): Promise<Lesson | undefined> {
-    return await this.ormRepository.save(lesson);
+  public async update(lesson: Lesson): Promise<Lesson> {
+    const findIndex = this.lessons.findIndex(findLesson => findLesson.id === lesson.id);
+
+    this.lessons[findIndex] = lesson;
+
+    return lesson;
   }
 
   public async findAllLessons(): Promise<Lesson[]> {
-    const lessons = await this.ormRepository.find();
+    let { lessons } = this;
+
+    lessons = this.lessons;
 
     return lessons;
   }

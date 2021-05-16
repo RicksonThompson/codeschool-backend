@@ -7,7 +7,7 @@ import ICreateModuleDTO from '../dtos/ICreateModuleDTO';
 import Module from '../../models/Module';
 
 class ModulesRepository implements IModulesRepository {
-  private modules: Module[];
+  private modules: Module[] = [];
 
   public async findById(id: number): Promise<Module | undefined> {
     const findModule = this.modules.find(FindModule => FindModule.id === id);
