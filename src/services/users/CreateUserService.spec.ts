@@ -23,7 +23,8 @@ describe('CreateUser', () => {
   });
 
   it('should not be able to create a new user with email from another', async () => {
-     const user = await fakeUsersRepository.create({
+
+    await createUser.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123123',
@@ -32,7 +33,7 @@ describe('CreateUser', () => {
     await expect(
       createUser.execute({
         name: 'John Doe',
-        email: user.email,
+        email: 'johndoe@example.com',
         password: '123123',
       }),
     ).rejects.toBeInstanceOf(AppError);
