@@ -1,3 +1,4 @@
+import AppError from '../../errors/AppError';
 import FakeUsersRepository from '../../repositories/fakes/FakesUsersRepository';
 import CreateUserService from './CreateUserService';
 import DeleteUserService from './DeleteUserService';
@@ -28,6 +29,12 @@ describe('CreateUser', () => {
     const users = await listUser.execute();
 
     expect(users).not.toContain(user);
+  });
+
+  it('should not be able to delete a user that does not exist', async () => {
+    await expect(
+      deleteUser.execute(1)
+    ).rejects.toBeInstanceOf(AppError);
   });
 
 });

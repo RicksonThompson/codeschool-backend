@@ -27,13 +27,17 @@ class LessonsRepository implements ILessonsRepository {
     return lesson;
   }
 
-  public async remove(lesson: Lesson): Promise<Lesson | undefined> {
+  public async remove(id: number): Promise<undefined> {
+    const lesson = await this.ormRepository.findOne(id);
 
-    return await this.ormRepository.remove(lesson);
+    await this.ormRepository.remove(lesson);
+
+    return undefined;
+
   }
 
-  public async update(lesson: Lesson): Promise<Lesson | undefined> {
-    return await this.ormRepository.save(lesson);
+  public async update(lesson: Lesson): Promise<Lesson> {
+    return this.ormRepository.save(lesson);
   }
 
   public async findAllLessons(): Promise<Lesson[]> {

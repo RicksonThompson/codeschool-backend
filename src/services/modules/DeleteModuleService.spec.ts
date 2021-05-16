@@ -1,3 +1,5 @@
+import AppError from '../../errors/AppError';
+
 import FakeModulesRepository from '../../repositories/fakes/FakesModulesRepository';
 import CreateModuleService from './CreateModuleService';
 import ListModuleService from './ListModuleService';
@@ -29,4 +31,11 @@ describe('DeleteModule', () => {
 
     expect(modules).not.toContain(module);
   });
+
+  it('should not be able to delete a module that does not exist', async () => {
+    await expect(
+      deleteModule.execute(1)
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
 });

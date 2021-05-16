@@ -16,7 +16,7 @@ class DeleteLessonService {
       throw new AppError('Lesson does not exists!');
     }
 
-    await this.lessonsRepository.remove(lesson);
+    await this.lessonsRepository.remove(id);
   }
 }
 

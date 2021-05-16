@@ -33,7 +33,7 @@ class ModulesRepository implements IModulesRepository {
   }
 
   public async update(module: Module): Promise<Module> {
-    return await this.ormRepository.save(module);
+    return this.ormRepository.save(module);
   }
 
   public async findAllModules(): Promise<Module[]> {

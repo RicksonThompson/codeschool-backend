@@ -1,3 +1,4 @@
+import AppError from '../../errors/AppError';
 import Lesson from '../../models/Lesson';
 import ILessonsRepository from '../../repositories/ILessonsRepository';
 
@@ -15,18 +16,22 @@ class UpdateLessonService {
     private lessonsRepository: ILessonsRepository
   ) {}
 
-  public async execute({ id, title, description, videoId, module_id }: IRequest): Promise<Lesson | undefined> {
+  public async execute({ id, title, description, videoId, module_id }: IRequest): Promise<Lesson> {
 
     const lesson = await this.lessonsRepository.findById(id);
+
+    if (!lesson) {
+      throw new AppError('Lesson does not exist.')
+    }
 
     lesson.title = title;
     lesson.description = description;
     lesson.videoId = videoId;
     lesson.module_id = module_id;
 
-    await this.lessonsRepository.update(lesson);
+    const updatedLesson = await this.lessonsRepository.update(lesson);
 
-    return lesson;
+    return updatedLesson;
   }
 }
 

@@ -1,3 +1,5 @@
+import AppError from '../../errors/AppError'
+
 import FakeLessonsRepository from '../../repositories/fakes/FakesLessonsRepository';
 import CreateLessonService from './CreateLessonService';
 import DeleteLessonService from './DeleteLessonService';
@@ -29,6 +31,12 @@ describe('DeleteLesson', () => {
     const lessons = await listLesson.execute();
 
     expect(lessons).not.toContain(lesson);
+  });
+
+  it('should not be able to delete a lesson that does not exist', async () => {
+    await expect(
+      deleteLesson.execute(1)
+    ).rejects.toBeInstanceOf(AppError);
   });
 
 });

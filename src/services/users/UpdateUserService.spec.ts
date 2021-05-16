@@ -33,7 +33,6 @@ it('should be able to update a user', async () => {
 
   expect(updatedUser?.name).toBe('John Trê');
   expect(updatedUser?.email).toBe('johnt@example.com');
-  // expect(user).toHaveProperty('id')
 });
 
 it('should not be able to update with a non existing user', async () => {
@@ -45,5 +44,20 @@ it('should not be able to update with a non existing user', async () => {
     }),
   ).rejects.toBeInstanceOf(AppError);
 });
+
+it('should not update a user with an existing email', async () => {
+  const user = await createUser.execute({
+    name: 'John Doe',
+    email: 'johndoetest@example.com',
+    password: '123456',
+  });
+
+  await expect(
+    updateUser.execute({
+    id: user.id,
+    name: 'John Trê',
+    email: user.email,
+  })).rejects.toBeInstanceOf(AppError);
+})
 
 });

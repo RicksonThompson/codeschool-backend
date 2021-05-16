@@ -1,3 +1,4 @@
+import AppError from '../../errors/AppError';
 import Module from '../../models/Module';
 import IModuleRepository from '../../repositories/IModulesRepository';
 
@@ -17,12 +18,16 @@ class UpdateModuleService {
 
     const module = await this.modulesRepository.findById(id_module);
 
+    if(!module) {
+      throw new AppError('Module does not exist')
+    }
+
     module.title = title;
     module.description = description;
 
-    await this.modulesRepository.update(module);
+    const updatedModule = await this.modulesRepository.update(module);
 
-    return module;
+    return updatedModule;
   }
 }
 

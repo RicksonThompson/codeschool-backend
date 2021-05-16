@@ -25,12 +25,12 @@ class LessonsRepository implements ILessonsRepository {
     return lesson;
   }
 
-  public async remove(lesson: Lesson): Promise<Lesson | undefined> {
-    const findIndex = this.lessons.findIndex(findLesson => findLesson.id === lesson.id);
+  public async remove(id: number): Promise<undefined> {
+    const findIndex = this.lessons.findIndex(findLesson => findLesson.id === id);
 
     this.lessons.splice(findIndex,1);
 
-    return lesson;
+    return undefined;
   }
 
   public async update(lesson: Lesson): Promise<Lesson> {
