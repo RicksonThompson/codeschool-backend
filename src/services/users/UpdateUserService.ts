@@ -1,5 +1,3 @@
-import { getRepository } from 'typeorm';
-
 import AppError from '../../errors/AppError';
 
 import User from '../../models/User';
@@ -26,16 +24,18 @@ class UpdateUserService {
       throw new AppError('User not found!');
     }
 
-    user.name = name;
-    user.email = email;
-
     const checkUserExists = await this.usersRepository.findByEmail(email);
 
     if (checkUserExists) {
       throw new AppError('Email address already used.');
     }
+    
+    user.name = name;
+    user.email = email;
 
-    return await this.usersRepository.save(user);
+    const updatedUser = await this.usersRepository.save(user);
+
+    return updatedUser;
   }
 }
 

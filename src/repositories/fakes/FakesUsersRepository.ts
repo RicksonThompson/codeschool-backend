@@ -1,5 +1,3 @@
-import { v4 as uuid_v4 } from "uuid";
-
 import IUsersRepository from '../IUsersRepository';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 
@@ -24,9 +22,11 @@ class UsersRepository implements IUsersRepository {
   public async create(userData: ICreateUserDTO): Promise<User> {
     const user = new User();
 
-    Object.assign(user, { id: uuid_v4() }, userData);
+    Object.assign(user, { id: Math.floor(Math.random() * 1000) }, userData);
 
     this.users.push(user);
+
+    console.log(user)
 
     return user;
   }

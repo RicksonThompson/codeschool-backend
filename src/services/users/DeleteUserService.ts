@@ -3,10 +3,6 @@ import AppError from '../../errors/AppError';
 import User from '../../models/User';
 import IUsersRepository from 'repositories/IUsersRepository';
 
-interface IRequest {
-  id: number;
-}
-
 class DeleteUserService {
 
   constructor (
