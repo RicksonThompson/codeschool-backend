@@ -1,8 +1,8 @@
 import FakeLessonsRepository from '../../repositories/fakes/FakesLessonsRepository';
 import CreateLessonService from './CreateLessonService';
 
-let fakeLessonsRepository: FakeLessonsRepository;
 let createLesson: CreateLessonService;
+let fakeLessonsRepository: FakeLessonsRepository;
 
 describe('CreateLesson', () => {
   beforeEach(() => {
