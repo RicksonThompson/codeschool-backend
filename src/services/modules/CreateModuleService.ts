@@ -12,7 +12,7 @@ class CreateModuleService {
   constructor (
     private modulesRepository: IModuleRepository
   ) {}
-  
+
   public async execute({ title, description, user_id }: IRequest): Promise<Module> {
 
     const module = await this.modulesRepository.create({

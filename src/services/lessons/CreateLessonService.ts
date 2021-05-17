@@ -16,7 +16,25 @@ class CreateClassService {
 
   public async execute({title, description, module_id, videoId} :IRequest) :Promise<Lesson> {
 
-    const videoIdDivided = videoId.split("=");
+    // function verificaChar (videoId: string[]): boolean {
+    //   const result = videoId.indexOf('&') > -1
+
+    //   return result;
+    // }
+    let videoIdDivided = videoId.split("=");
+
+    // const charVerifided = verificaChar(videoIdDivided[1]);
+
+    // if (charVerifided === true) {
+    //   videoIdDivided = videoIdDivided[1].split("&")
+    // }
+
+    console.log({
+      title,
+      description,
+      module_id,
+      videoId: videoIdDivided[1],
+    })
 
     const lesson = await this.lessonsRepository.create({
       title,
@@ -24,6 +42,8 @@ class CreateClassService {
       module_id,
       videoId: videoIdDivided[1],
     });
+
+
 
     return lesson;
   }
