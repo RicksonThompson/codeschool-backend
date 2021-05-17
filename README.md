@@ -44,14 +44,13 @@ Projeto foi desenvolvido durante um processo seletivo. O mesmo conta com uma cob
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- [Node.js][nodejs]
-- [React][reactjs]
-- [TypeScript][typescript]
-
+* NodeJS
+* ReactJS
+* Typescript
 
 ## 🚀 Como executar o projeto
 
-Podemos considerar este projeto como sendo divido em três partes:
+Podemos considerar este projeto como sendo divido em duas partes:
 1. Back-End
 2. Front-End
 
