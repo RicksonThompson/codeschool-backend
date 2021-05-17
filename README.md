@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="CodeSchool" title="CodeSchool" src="./assets/banner.png" />
+    <img alt="CodeSchool" title="CodeSchool" src="./src/assets/banner.png" />
 </h1>
 
 
@@ -29,15 +29,15 @@ Projeto foi desenvolvido durante um processo seletivo. O mesmo conta com uma cob
 ## 🎨 Layout
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Login" title="Login" src="./assets/login.png" width="400px">
+  <img alt="Login" title="Login" src="./src/assets/login.png" width="400px">
 
-  <img alt="Signup" title="#Signup" src="./assets/signup.png" width="400px">
+  <img alt="Signup" title="#Signup" src="./src/assets/signup.png" width="400px">
 
-  <img alt="Modules" title="#Modules" src="./assets/modules.png" width="400px">
+  <img alt="Modules" title="#Modules" src="./src/assets/modules.png" width="400px">
 
-  <img alt="Lessons" title="Lessons" src="./assets/lessons.png" width="400px">
+  <img alt="Lessons" title="Lessons" src="./src/assets/lessons.png" width="400px">
 
-  <img alt="Player" title="#Player" src="./assets/player.png" width="400px">
+  <img alt="Player" title="#Player" src="./src/assets/player.png" width="400px">
 </p>
 
 ## 🛠 Tecnologias
