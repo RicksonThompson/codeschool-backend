@@ -4,7 +4,7 @@
   "port": 5432,
   "username": "postgres",
   "password": "docker",
-  "database": "codeschool",
+  "database": "code_school",
   "entities": [
     "./src/models/*.ts"
   ],
